@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "CreateCategory";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+@using SignalRWebUI.Dtos
+@model CreateCategoryDto
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Create Category</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post">
+
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Add New Category</div>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="categoryname">Enter Category Name</label>
+								<input type="text" class="form-control" id="categoryname" asp-for="Name">
+
+						</div>
+
+
+					</div>
+					<div class="card-action">
+						<button class="btn btn-primary">Add Category</button>
+
+					</div>
+				</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+

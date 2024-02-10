@@ -2,48 +2,47 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
+@using SignalRWebUI.Dtos
+@model List<ResultCategoryDto>
 <div class="content">
 	<div class="container-fluid">
-		<h4 class="page-title">Tables</h4>
+		<h4 class="page-title">Category Panel</h4>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-						<div class="card-title">Basic Table</div>
+						<div class="card-title"> Category List</div>
 					</div>
 					<div class="card-body">
-						<div class="card-sub">
-							This is the basic table view of the ready dashboard :
-						</div>
+						
 						<table class="table mt-3">
 							<thead>
 								<tr>
-									<th scope="col">#</th>
-									<th scope="col">First</th>
-									<th scope="col">Last</th>
-									<th scope="col">Handle</th>
+									<th scope="col">Id</th>
+									<th scope="col">Category Name</th>
+									<th scope="col">Status</th>
+									<th scope="col">Update</th>
+									<th scope="col">Delete</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Mark</td>
-									<td>Otto</td>
-									<td>mdo</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>fat</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td colspan="2">Larry the Bird</td>
-									<td>twitter</td>
-								</tr>
+								@foreach(var item in Model)
+								{
+									<tr>
+										<td>@item.Id</td>
+										<td>@item.Name</td>
+										<td>@item.Status</td>
+										<td><a asp-action="UpdateCategory" asp-route-id="@item.Id" class="btn btn-outline-success">Update</a></td>
+										<td><a asp-action="DeleteCategory" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a></td>
+									</tr>
+								}
+								
+								
 							</tbody>
 						</table>
+
+						<td><a asp-action="CreateCategory" class="btn btn-outline-primary">New Category</a></td>
+
 					</div>
 				</div>
 

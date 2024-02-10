@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "UpdateCategory";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+@using SignalRWebUI.Dtos
+@model UpdateCategoryDto
+
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Update Category</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post">
+
+					<input type="hidden" asp-for="Id"/>
+
+					<div class="card">
+						<div class="card-header">
+							<div class="card-title">Update Category</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="categoryname">Enter Category Name</label>
+								<input type="text" class="form-control" id="categoryname" asp-for="Name">
+
+							</div>
+
+
+						</div>
+						<div class="card-action">
+							<button class="btn btn-primary">Update Category</button>
+
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
