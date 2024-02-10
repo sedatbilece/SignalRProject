@@ -34,9 +34,20 @@ namespace SignalRWebUI.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult CreateProduct()
+		public async Task<IActionResult> CreateProduct()
 		{
+			var model = new CreateProductDto();
+			var client = _httpClientFactory.CreateClient();
 
+			var response = await client.GetAsync("https://localhost:7298/api/Category");
+
+			if (response.IsSuccessStatusCode)
+			{
+				var jsonData = await response.Content.ReadAsStringAsync();
+				var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+				model.Categories = values;
+				return View(model);
+			}
 			return View();
 		}
 
@@ -54,7 +65,7 @@ namespace SignalRWebUI.Controllers
 			{
 				return RedirectToAction("Index");
 			}
-			return View();
+			return RedirectToAction("Index");
 		}
 
 		[HttpGet]
@@ -77,12 +88,17 @@ namespace SignalRWebUI.Controllers
 		{
 			var client = _httpClientFactory.CreateClient();
 
-			var response = await client.GetAsync($"https://localhost:7298/api/Product/{id}");
+			var response = await client.GetAsync("https://localhost:7298/api/Category");
+			var CategoryJson = await response.Content.ReadAsStringAsync();
+			var CategoryList = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(CategoryJson);
+
+			 response = await client.GetAsync($"https://localhost:7298/api/Product/{id}");
 
 			if (response.IsSuccessStatusCode)
 			{
 				var jsonData = await response.Content.ReadAsStringAsync();
 				var value = JsonConvert.DeserializeObject<UpdateProductDto>(jsonData);
+				value.Categories = CategoryList;
 				return View(value);
 			}
 
