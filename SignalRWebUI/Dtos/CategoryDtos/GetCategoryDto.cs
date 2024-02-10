@@ -1,6 +1,6 @@
-﻿namespace SignalRWebUI.Dtos
+﻿namespace SignalRWebUI.Dtos.CategoryDtos
 {
-	public class UpdateCategoryDto
+	public class GetCategoryDto
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
