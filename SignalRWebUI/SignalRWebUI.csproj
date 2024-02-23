@@ -7,6 +7,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\feane-1.0.0\about.html" />
+    <None Include="wwwroot\feane-1.0.0\book.html" />
+    <None Include="wwwroot\feane-1.0.0\css\bootstrap.css" />
+    <None Include="wwwroot\feane-1.0.0\css\font-awesome.min.css" />
+    <None Include="wwwroot\feane-1.0.0\css\responsive.css" />
+    <None Include="wwwroot\feane-1.0.0\css\style.css" />
+    <None Include="wwwroot\feane-1.0.0\css\style.css.map" />
+    <None Include="wwwroot\feane-1.0.0\css\style.scss" />
+    <None Include="wwwroot\feane-1.0.0\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\feane-1.0.0\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\feane-1.0.0\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\feane-1.0.0\images\about-img.png" />
+    <None Include="wwwroot\feane-1.0.0\images\client1.jpg" />
+    <None Include="wwwroot\feane-1.0.0\images\client2.jpg" />
+    <None Include="wwwroot\feane-1.0.0\images\f1.png" />
+    <None Include="wwwroot\feane-1.0.0\images\f2.png" />
+    <None Include="wwwroot\feane-1.0.0\images\f3.png" />
+    <None Include="wwwroot\feane-1.0.0\images\f4.png" />
+    <None Include="wwwroot\feane-1.0.0\images\f5.png" />
+    <None Include="wwwroot\feane-1.0.0\images\f6.png" />
+    <None Include="wwwroot\feane-1.0.0\images\f7.png" />
+    <None Include="wwwroot\feane-1.0.0\images\f8.png" />
+    <None Include="wwwroot\feane-1.0.0\images\f9.png" />
+    <None Include="wwwroot\feane-1.0.0\images\favicon.png" />
+    <None Include="wwwroot\feane-1.0.0\images\hero-bg.jpg" />
+    <None Include="wwwroot\feane-1.0.0\images\o1.jpg" />
+    <None Include="wwwroot\feane-1.0.0\images\o2.jpg" />
+    <None Include="wwwroot\feane-1.0.0\index.html" />
+    <None Include="wwwroot\feane-1.0.0\js\bootstrap.js" />
+    <None Include="wwwroot\feane-1.0.0\js\custom.js" />
+    <None Include="wwwroot\feane-1.0.0\js\jquery-3.4.1.min.js" />
+    <None Include="wwwroot\feane-1.0.0\menu.html" />
     <None Include="wwwroot\Ready-Bootstrap-Dashboard-master\.DS_Store" />
   </ItemGroup>
 
