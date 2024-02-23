@@ -1,0 +1,61 @@
+﻿@{
+	ViewData["Title"] = "Update Booking";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+@using SignalRWebUI.Dtos.BookingDtos
+@model UpdateBookingDto
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Update Booking</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post">
+
+					<div class="card">
+						<div class="card-header">
+							<div class="card-title">Update Booking</div>
+						</div>
+						<div class="card-body">
+
+							<input type="hidden" asp-for="Id" />
+
+							<div class="form-group">
+								<label for="Name">Enter Booking Name</label>
+								<input type="text" class="form-control" id="Name" asp-for="Name">
+							</div>
+
+							<div class="form-group">
+								<label for="Phone">Enter Phone</label>
+								<input type="text" class="form-control" id="Phone" asp-for="Phone">
+							</div>
+
+							<div class="form-group">
+								<label for="Mail">Enter Mail</label>
+								<input type="email" class="form-control" id="Mail" asp-for="Mail">
+							</div>
+
+							<div class="form-group">
+								<label for="PersonCount">Enter Person Count</label>
+								<input type="number" class="form-control" id="PersonCount" asp-for="PersonCount">
+							</div>
+
+							<div class="form-group">
+								<label for="Date">Enter Date</label>
+								<input type="date" class="form-control" id="Date" asp-for="Date">
+							</div>
+
+
+						</div>
+						<div class="card-action">
+							<button class="btn btn-primary">Update Booking</button>
+
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+

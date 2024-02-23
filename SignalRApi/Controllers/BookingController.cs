@@ -44,7 +44,7 @@ namespace SignalRApi.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var value = _bookingService.TGetById(id);

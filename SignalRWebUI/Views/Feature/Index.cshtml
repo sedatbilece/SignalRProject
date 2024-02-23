@@ -1,0 +1,63 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+@using SignalRWebUI.Dtos.FeatureDtos
+@model List<ResultFeatureDto>
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Feature Panel</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title"> Feature List</div>
+					</div>
+					<div class="card-body">
+
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col">Title 1</th>
+									<th scope="col">Description 1</th>
+									<th scope="col">Title 2</th>
+									<th scope="col">Description 2</th>
+									<th scope="col">Title 3</th>
+									<th scope="col">Description 3</th>
+									
+									<th scope="col">Update</th>
+									<th scope="col">Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.Id</td>
+										<td>@item.Title1</td>
+										<td>@item.Description1</td>
+										<td>@item.Title2</td>
+										<td>@item.Description2</td>
+										<td>@item.Title3</td>
+										<td>@item.Description3</td>
+
+										<td><a asp-action="UpdateFeature" asp-route-id="@item.Id" class="btn btn-outline-success">Update</a></td>
+										<td><a asp-action="DeleteFeature" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a></td>
+									</tr>
+								}
+
+
+							</tbody>
+						</table>
+
+						<td><a asp-action="CreateFeature" class="btn btn-outline-primary">New Feature</a></td>
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,59 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+@using SignalRWebUI.Dtos.BookingDtos
+@model List<ResultBookingDto>
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Booking Panel</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title"> Booking List</div>
+					</div>
+					<div class="card-body">
+
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col"> Name</th>
+									<th scope="col">Phone</th>
+									<th scope="col">Person Count</th>
+									<th scope="col">Status</th>
+									<th scope="col">Date</th>
+									<th scope="col">Update</th>
+									<th scope="col">Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.Id</td>
+										<td>@item.Name</td>
+										<td>@item.Phone</td>
+										<td>@item.PersonCount</td>
+										<td>rezerve edildi</td>
+										<td>@item.Date.ToString("dd/MM/yyyy")</td>
+										<td><a asp-action="UpdateBooking" asp-route-id="@item.Id" class="btn btn-outline-success">Update</a></td>
+										<td><a asp-action="DeleteBooking" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a></td>
+									</tr>
+								}
+
+
+							</tbody>
+						</table>
+
+						<td><a asp-action="CreateBooking" class="btn btn-outline-primary">New Booking</a></td>
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>

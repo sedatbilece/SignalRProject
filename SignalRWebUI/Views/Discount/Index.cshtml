@@ -1,0 +1,59 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+@using SignalRWebUI.Dtos.DiscountDtos
+@model List<ResultDiscountDto>
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Discount Panel</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title"> Discount List</div>
+					</div>
+					<div class="card-body">
+
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col">Title</th>
+									<th scope="col">ImageUrl</th>
+									<th scope="col">Amounth</th>
+									<th scope="col">Description</th>
+
+									<th scope="col">Update</th>
+									<th scope="col">Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.Id</td>
+										<td>@item.Title</td>
+										<td>@item.ImageUrl</td>
+										<td>@item.Amounth</td>
+										<td>@item.Description</td>
+
+										<td><a asp-action="UpdateDiscount" asp-route-id="@item.Id" class="btn btn-outline-success">Update</a></td>
+										<td><a asp-action="DeleteDiscount" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a></td>
+									</tr>
+								}
+
+
+							</tbody>
+						</table>
+
+						<td><a asp-action="CreateDiscount" class="btn btn-outline-primary">New Discount</a></td>
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>

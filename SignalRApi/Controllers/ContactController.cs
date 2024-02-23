@@ -46,7 +46,7 @@ namespace SignalRApi.Controllers
 
             return Ok("Updated");
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var value = _contactService.TGetById(id);
