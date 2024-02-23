@@ -1,0 +1,61 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+@using SignalRWebUI.Dtos.TestimonialDtos
+@model List<ResultTestimonialDto>
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Testimonial Panel</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title"> Testimonial List</div>
+					</div>
+					<div class="card-body">
+
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col">Name</th>
+									<th scope="col">Comment</th>
+									<th scope="col">Status</th>
+									<th scope="col">Image</th>
+									<th scope="col">Description</th>
+
+									<th scope="col">Update</th>
+									<th scope="col">Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.Id</td>
+										<td>@item.Name</td>
+										<td>@item.Comment</td>
+										<td>@item.Status</td>
+										<td>@item.ImageUrl</td>
+										<td>@item.Description</td>
+
+										<td><a asp-action="UpdateTestimonial" asp-route-id="@item.Id" class="btn btn-outline-success">Update</a></td>
+										<td><a asp-action="DeleteTestimonial" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a></td>
+									</tr>
+								}
+
+
+							</tbody>
+						</table>
+
+						<td><a asp-action="CreateTestimonial" class="btn btn-outline-primary">New Testimonial</a></td>
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
