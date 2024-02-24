@@ -9,5 +9,9 @@ namespace SignalR.DataAccessLayer.Abstract
 {
     public interface ICategoryDal :IGenereciDal<Category>
     {
+
+        public int CategoryCount();
+        public int ActiveCategoryCount();
+        public int PassiveCategoryCount();
     }
 }
