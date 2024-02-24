@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+@section Scripts
+{
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+   
+    <div class="card">
+
+        <script>
+            $(document).ready(() => {
+                console.log("document ready");
+                var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7298/SignalRHub").build();
+
+                connection.start().then(() => {
+                    console.log(connection.state);
+                    connection.invoke("SendCategoryCount");
+
+                    // Check the value every 5 seconds
+                    setInterval(() => {
+                        connection.invoke("SendCategoryCount");
+                    }, 5000); // 5000 milliseconds = 5 seconds
+                }).catch((err) => {
+                    console.log(err);
+                });
+
+                console.log("conn on");
+
+                connection.on("ReceiveCategoryCount", (value) => {
+                    console.log("Category count: " + value);
+                    $("#convalue").text(value);
+                });
+            });
+        </script>
+
+
+
+    </div>
+
+}
+
+<div class="container-fluid w-100 h-100">
+    <div class="row">
+        <div class="col">
+            <h1>Main Content</h1>
+            <!-- Your main content here -->
+            <div class="text-center">Value : <span id="convalue"></span></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

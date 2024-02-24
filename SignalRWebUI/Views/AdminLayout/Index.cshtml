@@ -84,6 +84,8 @@
 <script src="~/Ready-Bootstrap-Dashboard-master/assets/js/ready.min.js"></script>
 </html>
 
+@await RenderSectionAsync("Scripts", required: false)
+
 <script>
 	$('#displayNotif').on('click', function () {
 		var placementFrom = $('#notify_placement_from option:selected').val();
