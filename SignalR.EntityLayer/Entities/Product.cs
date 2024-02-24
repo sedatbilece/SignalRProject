@@ -14,5 +14,7 @@
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
+        public List<OrderDetail> OrderDetails { get; set; }
+
     }
 }
