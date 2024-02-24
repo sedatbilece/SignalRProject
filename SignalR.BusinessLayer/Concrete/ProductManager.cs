@@ -23,6 +23,11 @@ namespace SignalR.BusinessLayer.Concrete
 			return _productDal.ProductAvgPrice();
 		}
 
+		public decimal ProductAvgPriceByCategoryName(string name)
+		{
+			return _productDal.ProductAvgPriceByCategoryName(name);
+		}
+
 		public int ProductCount()
 		{
 			return _productDal.ProductCount();

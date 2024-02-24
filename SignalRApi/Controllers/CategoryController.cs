@@ -28,15 +28,15 @@ namespace SignalRApi.Controllers
             return Ok(values);
         }
 
-		[HttpGet("ActiveCategoryCount")]
-		public IActionResult ActiveCategoryCount()
+		[HttpGet("ActiveCount")]
+		public IActionResult ActiveCount()
 		{
 			var value = _categoryService.ActiveCategoryCount();
 			return Ok(value);
 		}
 
-		[HttpGet("PassiveCategoryCount")]
-		public IActionResult PassiveCategoryCount()
+		[HttpGet("PassiveCount")]
+		public IActionResult PassiveCount()
 		{
 			var value = _categoryService.PassiveCategoryCount();
 			return Ok(value);

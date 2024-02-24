@@ -18,6 +18,16 @@ namespace SignalR.BusinessLayer.Concrete
 			_orderDal = orderDal;
 		}
 
+		public int ActiveOrderCount()
+		{
+			return _orderDal.ActiveOrderCount();
+		}
+
+		public decimal LastOrderPrice()
+		{
+			return _orderDal.LastOrderPrice();
+		}
+
 		public void TAdd(Order entity)
 		{
 			throw new NotImplementedException();
@@ -36,6 +46,11 @@ namespace SignalR.BusinessLayer.Concrete
 		public Order TGetById(int id)
 		{
 			throw new NotImplementedException();
+		}
+
+		public int TotalOrderCount()
+		{
+			return _orderDal.TotalOrderCount();
 		}
 
 		public void TUpdate(Order entity)
