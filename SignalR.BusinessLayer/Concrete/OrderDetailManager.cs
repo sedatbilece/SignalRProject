@@ -13,6 +13,7 @@ namespace SignalR.BusinessLayer.Concrete
 	{
 
 		private readonly IOrderDetailDal _orderDetailDal;
+		private readonly IOrderDal _orderDal;
 
 		public OrderDetailManager(IOrderDetailDal orderDetailDal)
 		{
@@ -21,12 +22,26 @@ namespace SignalR.BusinessLayer.Concrete
 
 		public void TAdd(OrderDetail entity)
 		{
-			throw new NotImplementedException();
+			_orderDetailDal.Add(entity);
+			var order = _orderDal.GetById(entity.OrderId);
+
+			if(order != null)
+			{
+				order.TotalPrice += entity.TotalPrice;
+				_orderDal.Update(order);
+			}
+
 		}
 
 		public void TDelete(OrderDetail entity)
 		{
-			throw new NotImplementedException();
+			_orderDetailDal.Delete(entity);
+			var order = _orderDal.GetById(entity.OrderId);
+			if(order != null)
+			{
+				order.TotalPrice -= entity.TotalPrice;
+				_orderDal.Update(order);
+			}
 		}
 
 		public List<OrderDetail> TGetAll()

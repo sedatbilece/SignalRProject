@@ -12,10 +12,12 @@ namespace SignalR.BusinessLayer.Concrete
 	public class OrderManager : IOrderService
 	{
 		private readonly IOrderDal _orderDal;
+		private readonly IMoneyCaseDal _moneyCaseDal;
 
-		public OrderManager(IOrderDal orderDal)
+		public OrderManager(IOrderDal orderDal, IMoneyCaseDal moneyCaseDal)
 		{
 			_orderDal = orderDal;
+			_moneyCaseDal = moneyCaseDal;
 		}
 
 		public int ActiveOrderCount()
@@ -30,22 +32,22 @@ namespace SignalR.BusinessLayer.Concrete
 
 		public void TAdd(Order entity)
 		{
-			throw new NotImplementedException();
+			_orderDal.Add(entity);
 		}
 
 		public void TDelete(Order entity)
 		{
-			throw new NotImplementedException();
+			_orderDal.Delete(entity);
 		}
 
 		public List<Order> TGetAll()
 		{
-			throw new NotImplementedException();
+			return _orderDal.GetAll();
 		}
 
 		public Order TGetById(int id)
 		{
-			throw new NotImplementedException();
+			return _orderDal.GetById(id);
 		}
 
 		public int TotalOrderCount()
@@ -55,7 +57,17 @@ namespace SignalR.BusinessLayer.Concrete
 
 		public void TUpdate(Order entity)
 		{
-			throw new NotImplementedException();
+			_orderDal.Update(entity);
+			
+			if(entity.Description=="Masa Kapatıldı")
+			{
+				_moneyCaseDal.Update(new MoneyCase
+				{
+					Id = 1,
+					TotalAmount = _moneyCaseDal.GetById(1).TotalAmount + entity.TotalPrice
+				});
+			}
+			
 		}
 	}
 }
