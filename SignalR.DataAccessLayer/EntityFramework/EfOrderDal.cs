@@ -29,6 +29,11 @@ namespace SignalR.DataAccessLayer.EntityFramework
 			return _context.Orders.OrderByDescending(x => x.Id).FirstOrDefault().TotalPrice;
 		}
 
+		public decimal TodayTotalPrice()
+		{
+			return _context.Orders.Where(x => x.Date.Date == DateTime.Now.Date).Sum(x => x.TotalPrice);
+		}
+
 		public int TotalOrderCount()
 		{
 			return _context.Orders.Count();

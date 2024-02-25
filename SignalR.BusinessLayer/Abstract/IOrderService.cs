@@ -9,5 +9,7 @@ namespace SignalR.BusinessLayer.Abstract
 		public int ActiveOrderCount();
 
 		public decimal LastOrderPrice();
+
+		public decimal TodayTotalPrice();
 	}
 }

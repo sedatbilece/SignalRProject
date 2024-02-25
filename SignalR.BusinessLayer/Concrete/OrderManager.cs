@@ -50,6 +50,11 @@ namespace SignalR.BusinessLayer.Concrete
 			return _orderDal.GetById(id);
 		}
 
+		public decimal TodayTotalPrice()
+		{
+			return _orderDal.TodayTotalPrice();
+		}
+
 		public int TotalOrderCount()
 		{
 			return _orderDal.TotalOrderCount();
@@ -59,13 +64,11 @@ namespace SignalR.BusinessLayer.Concrete
 		{
 			_orderDal.Update(entity);
 			
-			if(entity.Description=="Masa Kapatıldı")
+			if(entity.Description.ToLower()=="hesap kapatıldı")
 			{
-				_moneyCaseDal.Update(new MoneyCase
-				{
-					Id = 1,
-					TotalAmount = _moneyCaseDal.GetById(1).TotalAmount + entity.TotalPrice
-				});
+				var moneycase = _moneyCaseDal.GetById(1);
+				moneycase.TotalAmount += entity.TotalPrice;
+				_moneyCaseDal.Update(moneycase);
 			}
 			
 		}
