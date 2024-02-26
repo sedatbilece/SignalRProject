@@ -5,50 +5,105 @@
 
 <h3>Dashboard</h3>
 
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/Ready-Bootstrap-Dashboard-master/assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="~/Ready-Bootstrap-Dashboard-master/assets/js/core/bootstrap.min.js"></script>
+
 <div class="container-fluid">
 	<h4 class="page-title">Dashboard</h4>
 
+	<script>
+		$(document).ready(() => {
+			console.log("document ready");
+			var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7298/SignalRHub").build();
+
+			connection.start().then(() => {
+
+				
+
+				
+				setInterval(() => {
+					connection.invoke("SendDashboardStatistics");
+					connection.invoke("ProductCountByCategoryName");
+				}, 1000); 
+
+			}).catch((err) => {
+				console.log(err);
+			});
+
+			connection.on("ReceiveCategoryCount", (value) => {
+				$("#CategoryCount").text(value);
+			});
+			connection.on("ReceiveProductCount", (value2) => {
+				$("#ProductCount").text(value2);
+			});
+			connection.on("ReceiveActiveCategoryCount", (value3) => {
+				$("#ActiveCategoryCount").text(value3);
+			});
+			connection.on("ReceivePassiveCategoryCount", (value4) => {
+				$("#PassiveCategoryCount").text(value4);
+			});
+			connection.on("ReceiveProductCountByCategoryName", (categoryCounts) => {
+				$("#categoryProductCounts").empty(); // Clear previous content
+				$.each(categoryCounts, (categoryName, count) => {
+					var span = $("<span>").text(categoryName + ": " + count);
+					$("#categoryProductCounts").append(span).append("<br>");
+				});
+			});
+			connection.on("ReceiveProductAvgPrice", (value6) => {
+				$("#ProductAvgPrice").text(value6);
+			});
+			
+
+		});
+	</script>
+
+
+
+
 	<div class="row">
 		<div class="col-md-3">
-			<div class="card card-stats card-warning">
+			<div class="card card-stats card-warning h-75 d-flex flex-column">
 				<div class="card-body ">
 					<div class="row">
 						<div class="col-5">
 							<div class="icon-big text-center">
-								<i class="la la-users"></i>
+								<i class="la la-certificate"></i>
 							</div>
 						</div>
 						<div class="col-7 d-flex align-items-center">
 							<div class="numbers">
-								<p class="card-category">Visitors</p>
-								<h4 class="card-title">1,294</h4>
+								<p class="card-category">Category Count</p>
+								<h4 class="card-title" id="CategoryCount"></h4>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="col-md-3">
-			<div class="card card-stats card-success">
+			<div class="card card-stats card-success h-75 d-flex flex-column">
 				<div class="card-body ">
 					<div class="row">
 						<div class="col-5">
 							<div class="icon-big text-center">
-								<i class="la la-bar-chart"></i>
+								<i class="la la-shopping-cart"></i>
 							</div>
 						</div>
 						<div class="col-7 d-flex align-items-center">
 							<div class="numbers">
-								<p class="card-category">Sales</p>
-								<h4 class="card-title">$ 1,345</h4>
+								<p class="card-category">Product Count</p>
+								<h4 class="card-title" id="ProductCount"></h4>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="col-md-3">
-			<div class="card card-stats card-danger">
+			<div class="card card-stats card-danger h-75 d-flex flex-column">
 				<div class="card-body">
 					<div class="row">
 						<div class="col-5">
@@ -58,27 +113,28 @@
 						</div>
 						<div class="col-7 d-flex align-items-center">
 							<div class="numbers">
-								<p class="card-category">Subscribers</p>
-								<h4 class="card-title">1303</h4>
+								<p class="card-category">Active Category Count</p>
+								<h4 class="card-title" id="ActiveCategoryCount"></h4>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="col-md-3">
-			<div class="card card-stats card-primary">
+			<div class="card card-stats card-primary h-75 d-flex flex-column">
 				<div class="card-body ">
 					<div class="row">
 						<div class="col-5">
 							<div class="icon-big text-center">
-								<i class="la la-check-circle"></i>
+								<i class="la la-close"></i>
 							</div>
 						</div>
 						<div class="col-7 d-flex align-items-center">
 							<div class="numbers">
-								<p class="card-category">Order</p>
-								<h4 class="card-title">576</h4>
+								<p class="card-category">Passive Category Count</p>
+								<h4 class="card-title" id="PassiveCategoryCount"></h4>
 							</div>
 						</div>
 					</div>
@@ -86,29 +142,32 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="row">
+
 		<div class="col-md-3">
-			<div class="card card-stats card-warning">
+			<div class="card card-stats card-warning h-75 d-flex flex-column">
 				<div class="card-body ">
 					<div class="row">
 						<div class="col-5">
 							<div class="icon-big text-center">
-								<i class="la la-users"></i>
+								<i class="la la-list"></i>
 							</div>
 						</div>
 						<div class="col-7 d-flex align-items-center">
 							<div class="numbers">
-								<p class="card-category">Visitors</p>
-								<h4 class="card-title">1,294</h4>
+								<p class="card-category"><b>Category Product Count</b></p>
+								<div id="categoryProductCounts"></div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="col-md-3">
-			<div class="card card-stats card-success">
-				<div class="card-body ">
+			<div class="card card-stats card-success h-75 d-flex flex-column">
+				<div class="card-body">
 					<div class="row">
 						<div class="col-5">
 							<div class="icon-big text-center">
@@ -117,8 +176,8 @@
 						</div>
 						<div class="col-7 d-flex align-items-center">
 							<div class="numbers">
-								<p class="card-category">Sales</p>
-								<h4 class="card-title">$ 1,345</h4>
+								<p class="card-category">Product Avg Price</p>
+								<h4 class="card-title" id="ProductAvgPrice"></h4>
 							</div>
 						</div>
 					</div>
@@ -126,7 +185,7 @@
 			</div>
 		</div>
 		<div class="col-md-3">
-			<div class="card card-stats card-danger">
+			<div class="card card-stats card-danger h-75 d-flex flex-column">
 				<div class="card-body">
 					<div class="row">
 						<div class="col-5">
@@ -145,7 +204,7 @@
 			</div>
 		</div>
 		<div class="col-md-3">
-			<div class="card card-stats card-primary">
+			<div class="card card-stats card-primary h-75 d-flex flex-column">
 				<div class="card-body ">
 					<div class="row">
 						<div class="col-5">

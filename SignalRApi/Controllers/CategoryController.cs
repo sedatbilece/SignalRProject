@@ -28,6 +28,13 @@ namespace SignalRApi.Controllers
             return Ok(values);
         }
 
+		[HttpGet("Count")]
+		public IActionResult Count()
+		{
+			var value = _categoryService.CategoryCount();
+			return Ok(value);
+		}
+
 		[HttpGet("ActiveCount")]
 		public IActionResult ActiveCount()
 		{
