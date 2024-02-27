@@ -10,12 +10,18 @@ namespace SignalRApi.Hubs
 		private readonly SignalRContext _context;
 		private readonly ICategoryService _categoryService;
 		private readonly IProductService _productService;
+		private readonly IOrderService _orderService;
+		private readonly IMoneyCaseService _moneyCaseService;
+		private readonly IMenuTableService _menuTableService;
 
-		public SignalRHub(ICategoryService categoryService, IProductService productService, SignalRContext context)
+		public SignalRHub(ICategoryService categoryService, IProductService productService, SignalRContext context, IOrderService orderService, IMoneyCaseService moneyCaseService, IMenuTableService menuTableService)
 		{
 			_categoryService = categoryService;
 			_productService = productService;
 			_context = context;
+			_orderService = orderService;
+			_moneyCaseService = moneyCaseService;
+			_menuTableService = menuTableService;
 		}
 
 		public async Task SendDashboardStatistics()
@@ -34,6 +40,32 @@ namespace SignalRApi.Hubs
 
 			var value6 = _productService.ProductAvgPrice();
 			await Clients.All.SendAsync("ReceiveProductAvgPrice", value6.ToString("F2")+"₺");
+
+			var value7 = _productService.ProductNameByMinOrMaxPrice("min");
+			await Clients.All.SendAsync("ReceiveProductNameByMinPrice", value7);
+
+			var value8 = _productService.ProductNameByMinOrMaxPrice("max");
+			await Clients.All.SendAsync("ReceiveProductNameByMaxPrice", value8);
+
+			var value10 = _orderService.TotalOrderCount();
+			await Clients.All.SendAsync("ReceiveTotalOrderCount", value10);
+
+			var value11 = _orderService.ActiveOrderCount();
+			await Clients.All.SendAsync("ReceiveActiveOrderCount", value11);
+
+			var value12 = _orderService.LastOrderPrice();
+			await Clients.All.SendAsync("ReceiveLastOrderPrice", value12+"₺");
+
+			var value13 = _moneyCaseService.TotalMoneyCaseAmount();
+			await Clients.All.SendAsync("ReceiveTotalMoneyCaseAmount", value13 + "₺");
+
+			var value14 = _orderService.TodayTotalPrice();
+			await Clients.All.SendAsync("ReceiveTodayTotalPrice", value14 + "₺");
+
+			var value15 = _menuTableService.MenuTableCount();
+			await Clients.All.SendAsync("ReceiveMenuTableCount", value15);
+
+
 		}
 
 		public async Task ProductCountByCategoryName()
@@ -48,6 +80,22 @@ namespace SignalRApi.Hubs
 			}
 
 			await Clients.All.SendAsync("ReceiveProductCountByCategoryName", value5);
+
+
+		}
+
+		public async Task ProductAvgPriceByCategoryName()
+		{
+			var categories = _categoryService.TGetAll();
+			var value9 = new Dictionary<string, string>();
+			foreach (var category in categories)
+			{
+				var value = _productService.ProductAvgPriceByCategoryName(category.Name).ToString("F2") + "₺";
+				value9.Add(category.Name, value);
+
+			}
+
+			await Clients.All.SendAsync("ReceiveProductAvgPriceByCategoryName", value9);
 
 
 		}

@@ -32,7 +32,14 @@ namespace SignalR.DataAccessLayer.EntityFramework
 
 		public decimal ProductAvgPriceByCategoryName(string name)
 		{
-			return _context.Products.Include(x => x.Category).Where(x => x.Category.Name.ToLower() == name.ToLower()).Average(x => x.Price);
+			try
+			{
+				return _context.Products.Include(x => x.Category).Where(x => x.Category.Name.ToLower() == name.ToLower()).Average(x => x.Price);
+			}
+			catch (Exception)
+			{
+				return 0;
+			}
 		}
 
 		public int ProductCount()
