@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SignalRWebUI.Dtos.AboutDtos;
+using SignalRWebUI.Dtos.CategoryDtos;
 using SignalRWebUI.Dtos.ContactDtos;
 using SignalRWebUI.Dtos.DefaultDtos.SliderDtos;
 using SignalRWebUI.Dtos.DiscountDtos;
@@ -58,6 +59,21 @@ namespace SignalRWebUI.Services
 
             return null;
         }
+
+        public async Task<List<ResultProductWithCategoryDto>> ListProductsWithCategory()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync("https://localhost:7298/api/Product/ListWithCategory");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(jsonData);
+                return values;
+            }
+
+            return null;
+        }
+
         public async Task<List<ResultAboutDto>> ListAbouts()
         {
             var client = _httpClientFactory.CreateClient();
@@ -85,6 +101,7 @@ namespace SignalRWebUI.Services
 
             return null;
         }
+
         public async Task<List<ResultContactDto>> ListContacts()
         {
             var client = _httpClientFactory.CreateClient();
@@ -99,7 +116,19 @@ namespace SignalRWebUI.Services
             return null;
         }
 
+        public async Task<List<ResultCategoryDto>> ListCategories()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync("https://localhost:7298/api/Category");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+                return values;
+            }
 
+            return null;
+        }
 
 
     }

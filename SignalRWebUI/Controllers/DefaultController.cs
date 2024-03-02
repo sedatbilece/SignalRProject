@@ -39,15 +39,25 @@ namespace SignalRWebUI.Controllers
 
             return View(model);
 		}
-        public IActionResult Menu()
+        public async Task<IActionResult> Menu()
+        {
+            var model = new DefaultDto();
+            var client = _httpClientFactory.CreateClient();
+
+            model.ProductsWithCategory = await _consumeService.ListProductsWithCategory();
+            model.Categories = await _consumeService.ListCategories();
+            var contactList = await _consumeService.ListContacts();
+            model.Contact = contactList.FirstOrDefault();
+
+
+            return View(model);
+
+        }
+        public async Task<IActionResult> About()
         {
             return View();
         }
-        public IActionResult About()
-        {
-            return View();
-        }
-        public IActionResult BookTable()
+        public async Task<IActionResult> BookTable()
         {
             return View();
         }
