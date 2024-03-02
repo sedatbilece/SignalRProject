@@ -69,10 +69,16 @@ builder.Services.AddScoped<IMenuTableDal, EfMenuTableDal>();
 builder.Services.AddScoped<ISliderService, SliderManager>();
 builder.Services.AddScoped<ISliderDal, EfSliderDal>();
 
+builder.Services.AddScoped<IBasketService, BasketManager>();
+builder.Services.AddScoped<IBasketDal, EfBasketDal>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 
