@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SignalRWebUI.Dtos.AboutDtos;
+using SignalRWebUI.Dtos.BasketDtos;
 using SignalRWebUI.Dtos.CategoryDtos;
 using SignalRWebUI.Dtos.ContactDtos;
 using SignalRWebUI.Dtos.DefaultDtos.SliderDtos;
@@ -124,6 +125,21 @@ namespace SignalRWebUI.Services
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+                return values;
+            }
+
+            return null;
+        }
+
+
+        public async Task<List<ResultBasketDto>> ListBaskets(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync("https://localhost:7298/api/Baskets/"+id);
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultBasketDto>>(jsonData);
                 return values;
             }
 
