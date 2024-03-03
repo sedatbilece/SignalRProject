@@ -80,7 +80,7 @@
                             <a href="" class="user_link">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                             </a>
-                            <a class="cart_link" href="#">
+                            <a class="cart_link" href="/Basket/Index">
                                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                 <g>
                                 <g>
@@ -373,20 +373,38 @@
     <!-- End Google Map -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <script>
 
-        function showProductId(id) {
-            $.ajax({
-                url: "https://localhost:7298/api/Product/"+id,
-                type: "GET",
-                data: { id: id },
-                success: function (response) {
-                    console.log(response);
-                    swal("Added To Cart", response.name+" Price : "+response.price, "success");
+        <script>
+            async function showProductId(id) {
+                try {
+                    const response = await fetch(`https://localhost:7298/api/Product/${id}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch product data');
+                    }
+                    const productData = await response.json();
+                    console.log(productData);
+                    swal("Added To Cart", `${productData.name} Price : ${productData.price}`, "success");
+
+                    // Add the product to the basket
+                    const basketData = { productId: id };
+                const basketResponse = await fetch('https://localhost:7298/api/Baskets', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(basketData)
+                    });
+
+                    if (!basketResponse.ok) {
+                        throw new Error('Failed to add product to basket');
+                    }
+
+                   
+                } catch (error) {
+                    console.error(error);
+                    // Handle errors here
                 }
-            });
-        }
-
+            }
     </script>
 
 </body>
