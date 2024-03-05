@@ -1,5 +1,6 @@
 ﻿using SignalRWebUI.Dtos.AboutDtos;
 using SignalRWebUI.Dtos.BasketDtos;
+using SignalRWebUI.Dtos.BookingDtos;
 using SignalRWebUI.Dtos.CategoryDtos;
 using SignalRWebUI.Dtos.ContactDtos;
 using SignalRWebUI.Dtos.DefaultDtos.SliderDtos;
@@ -20,5 +21,6 @@ namespace SignalRWebUI.Dtos.DefaultDtos
         public ResultContactDto Contact { get; set; }
         public List<ResultCategoryDto> Categories { get; set; }
         public List<ResultBasketDto> Baskets { get; set; }
+        public CreateBookingDto CreateBookingDto { get; set; } = new CreateBookingDto();
     }
 }

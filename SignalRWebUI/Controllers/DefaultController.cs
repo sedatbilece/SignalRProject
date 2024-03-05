@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using SignalRWebUI.Dtos.AboutDtos;
 using SignalRWebUI.Dtos.BasketDtos;
+using SignalRWebUI.Dtos.BookingDtos;
 using SignalRWebUI.Dtos.DefaultDtos;
 using SignalRWebUI.Dtos.DefaultDtos.SliderDtos;
 using SignalRWebUI.Dtos.DiscountDtos;
@@ -78,7 +79,35 @@ namespace SignalRWebUI.Controllers
         }
         public async Task<IActionResult> BookTable()
         {
+            var model = new DefaultDto();
+            var client = _httpClientFactory.CreateClient();
+
+
+
+            var contactList = await _consumeService.ListContacts();
+            model.Contact = contactList.FirstOrDefault();
+
+
+            return View(model);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BookTable(DefaultDto model)
+        {
+
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(model.CreateBookingDto);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("https://localhost:7298/api/booking", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
+
+
     }
 }
