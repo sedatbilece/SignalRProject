@@ -13,18 +13,20 @@ namespace SignalRApi.Hubs
 		private readonly IOrderService _orderService;
 		private readonly IMoneyCaseService _moneyCaseService;
 		private readonly IMenuTableService _menuTableService;
+		private readonly INotificationService _notificationService;
 
-		public SignalRHub(ICategoryService categoryService, IProductService productService, SignalRContext context, IOrderService orderService, IMoneyCaseService moneyCaseService, IMenuTableService menuTableService)
-		{
-			_categoryService = categoryService;
-			_productService = productService;
-			_context = context;
-			_orderService = orderService;
-			_moneyCaseService = moneyCaseService;
-			_menuTableService = menuTableService;
-		}
+        public SignalRHub(ICategoryService categoryService, IProductService productService, SignalRContext context, IOrderService orderService, IMoneyCaseService moneyCaseService, IMenuTableService menuTableService, INotificationService notificationService)
+        {
+            _categoryService = categoryService;
+            _productService = productService;
+            _context = context;
+            _orderService = orderService;
+            _moneyCaseService = moneyCaseService;
+            _menuTableService = menuTableService;
+            _notificationService = notificationService;
+        }
 
-		public async Task SendDashboardStatistics()
+        public async Task SendDashboardStatistics()
 		{
 			var value = _categoryService.CategoryCount();
 			await Clients.All.SendAsync("ReceiveCategoryCount", value);
@@ -100,6 +102,14 @@ namespace SignalRApi.Hubs
 
 		}
 
+		public async Task SendNotification()
+		{
+            var value = _notificationService.CountByStatus(false);
+            await Clients.All.SendAsync("ReceiveCountByStatusFalse", value);
+
+			var value2 = _notificationService.GetAllNotificationByStatus(false);
+			await Clients.All.SendAsync("ReceiveAllByStatusFalse", value2);
+        }
 
 
 	}

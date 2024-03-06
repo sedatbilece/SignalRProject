@@ -9,5 +9,8 @@ namespace SignalR.DataAccessLayer.Abstract
 {
     public interface INotificationDal :IGenereciDal<Notification>
     {
+
+        int CountByStatus(bool statusType);
+        List<Notification> GetAllNotificationByStatus(bool statusType);
     }
 }
