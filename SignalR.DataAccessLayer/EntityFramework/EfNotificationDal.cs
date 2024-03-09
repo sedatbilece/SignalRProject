@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SignalR.DataAccessLayer.EntityFramework
 {
-    public class EfNotificationDal : GenericRepository<Notification>, INotificationDal
+	public class EfNotificationDal : GenericRepository<Notification>, INotificationDal
     {
         private readonly SignalRContext _context;
         public EfNotificationDal(SignalRContext context) : base(context)
@@ -27,5 +27,12 @@ namespace SignalR.DataAccessLayer.EntityFramework
         {
             return _context.Notifications.Where(x => x.Status == statusType).OrderByDescending(x=>x.Date).ToList();
         }
-    }
+
+		public void NotificationStatusChange(int id, bool statusType)
+		{
+          var notif=  _context.Notifications.FirstOrDefault(x => x.Id == id);
+          notif.Status = statusType;
+	      _context.SaveChanges();
+		}
+	}
 }

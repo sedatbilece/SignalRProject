@@ -1,0 +1,46 @@
+﻿@{
+	ViewData["Title"] = "Update Notification";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+@using SignalR.DtoLayer.NotificationDtos
+@model UpdateNotificationDto
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Update Notification</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post">
+					<input  type="hidden" asp-for="Id"/> 
+					<div class="card">
+						<div class="card-header">
+							<div class="card-title">Update Notification</div>
+						</div>
+						<div class="card-body">
+
+							<div class="form-group">
+								<label for="Type">Enter Type</label>
+								<input type="text" class="form-control" id="Type" asp-for="Type">
+							</div>
+							<div class="form-group">
+								<label for="Icon">Enter Icon</label>
+								<input type="text" class="form-control" id="Icon" asp-for="Icon">
+							</div>
+							<div class="form-group">
+								<label for="Description">Enter Description</label>
+								<input type="text" class="form-control" id="Description" asp-for="Description">
+							</div>
+
+						</div>
+						<div class="card-action">
+							<button class="btn btn-primary">Update Notification</button>
+
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+

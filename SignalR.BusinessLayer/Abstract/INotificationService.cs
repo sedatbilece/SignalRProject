@@ -12,5 +12,7 @@ namespace SignalR.BusinessLayer.Abstract
         int CountByStatus(bool statusType);
 
         List<Notification> GetAllNotificationByStatus(bool statusType);
-    }
+
+		void NotificationStatusChange(int id, bool statusType);
+	}
 }

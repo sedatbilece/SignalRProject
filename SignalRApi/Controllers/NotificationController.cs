@@ -33,15 +33,26 @@ namespace SignalRApi.Controllers
             return Ok(_notificationService.GetAllNotificationByStatus(false));
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+			var notification = _notificationService.TGetById(id);
+			if (notification == null)
+            {
+				return NotFound();
+			}
+			return Ok(notification);
+		}
+
         [HttpPost]
         public IActionResult Add(CreateNotificationDto notification)
         {
             _notificationService.TAdd(new Notification
             {
-                Date = notification.Date,
+                Date = DateTime.Now,
                 Description = notification.Description,
                 Icon = notification.Icon,
-                Status = notification.Status,
+                Status = false,
                 Type = notification.Type
             });
             return Created("Created notification", notification);
@@ -55,7 +66,7 @@ namespace SignalRApi.Controllers
             {
                 return NotFound();
             }
-            notificationToUpdate.Date = notification.Date;
+            notificationToUpdate.Date = DateTime.Now;
             notificationToUpdate.Description = notification.Description;
             notificationToUpdate.Icon = notification.Icon;
             notificationToUpdate.Status = notification.Status;
@@ -75,6 +86,19 @@ namespace SignalRApi.Controllers
             _notificationService.TDelete(notificationToDelete);
             return NoContent();
         }
+
+        [HttpGet("ChangeStatus/{id}")]
+        public IActionResult ChangeStatus(int id)
+        {
+			var notificationToUpdate = _notificationService.TGetById(id);
+			if (notificationToUpdate == null)
+            {
+				return NotFound();
+			}
+			notificationToUpdate.Status = !notificationToUpdate.Status;
+			_notificationService.TUpdate(notificationToUpdate);
+			return NoContent();
+		}
 
 
     }

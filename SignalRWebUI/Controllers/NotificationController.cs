@@ -102,5 +102,22 @@ namespace SignalRWebUI.Controllers
 
             return View();
         }
-    }
+
+
+        [HttpGet]
+		public async Task<IActionResult> ChangeNotificationStatus(int id)
+		{
+			var client = _httpClientFactory.CreateClient();
+
+			var response = await client.GetAsync($"https://localhost:7298/api/Notification/ChangeStatus/{id}");
+
+			if (response.IsSuccessStatusCode)
+			{
+				return RedirectToAction("Index");
+			}
+
+			return View();
+		}
+
+	}
 }

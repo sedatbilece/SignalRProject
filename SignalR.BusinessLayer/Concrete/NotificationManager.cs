@@ -30,7 +30,12 @@ namespace SignalR.BusinessLayer.Concrete
             return _notificationDal.GetAllNotificationByStatus(statusType);
         }
 
-        public void TAdd(Notification entity)
+		public void NotificationStatusChange(int id, bool statusType)
+		{
+		     _notificationDal.NotificationStatusChange(id, statusType);
+		}
+
+		public void TAdd(Notification entity)
         {
             _notificationDal.Add(entity);
         }
