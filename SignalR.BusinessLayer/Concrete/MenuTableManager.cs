@@ -26,27 +26,27 @@ namespace SignalR.BusinessLayer.Concrete
 
 		public void TAdd(MenuTable entity)
 		{
-			throw new NotImplementedException();
+			_efMenuTableDal.Add(entity);
 		}
 
 		public void TDelete(MenuTable entity)
 		{
-			throw new NotImplementedException();
+			_efMenuTableDal.Delete(entity);
 		}
 
 		public List<MenuTable> TGetAll()
 		{
-			throw new NotImplementedException();
+			return _efMenuTableDal.GetAll();
 		}
 
 		public MenuTable TGetById(int id)
 		{
-			throw new NotImplementedException();
+			return _efMenuTableDal.GetById(id);
 		}
 
 		public void TUpdate(MenuTable entity)
 		{
-			throw new NotImplementedException();
+			_efMenuTableDal.Update(entity);
 		}
 	}
 
