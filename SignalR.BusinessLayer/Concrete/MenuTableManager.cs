@@ -24,6 +24,11 @@ namespace SignalR.BusinessLayer.Concrete
 			return _efMenuTableDal.MenuTableCount();
 		}
 
+		public void MenuTableStatusChange(int id, bool statusType)
+		{
+			_efMenuTableDal.MenuTableStatusChange(id, statusType);
+		}
+
 		public void TAdd(MenuTable entity)
 		{
 			_efMenuTableDal.Add(entity);

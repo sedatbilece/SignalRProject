@@ -32,6 +32,24 @@ namespace SignalRWebUI.Controllers
 			return View();
 		}
 
+		
+		public async Task<IActionResult> TableListByStatus()
+		{
+
+			var client = _httpClientFactory.CreateClient();
+
+			var response = await client.GetAsync("https://localhost:7298/api/MenuTables");
+
+			if (response.IsSuccessStatusCode)
+			{
+				var jsonData = await response.Content.ReadAsStringAsync();
+				var values = JsonConvert.DeserializeObject<List<ResultMenuTableDto>>(jsonData);
+				return View(values);
+			}
+
+			return View();
+		}
+
 		[HttpGet]
 		public IActionResult CreateMenuTable()
 		{
@@ -102,5 +120,24 @@ namespace SignalRWebUI.Controllers
 
 			return View();
 		}
+		
+
+		[HttpGet]
+		public async Task<IActionResult> ChangeMenuTableStatus(int id)
+		{
+			var client = _httpClientFactory.CreateClient();
+
+			var response = await client.GetAsync($"https://localhost:7298/api/MenuTables/ChangeStatus/{id}");
+
+			if (response.IsSuccessStatusCode)
+			{
+				
+				//referer and return last page
+				return Redirect(Request.Headers["Referer"].ToString());
+			}
+
+			return View();
+		}
+
 	}
 }

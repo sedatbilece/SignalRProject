@@ -10,5 +10,7 @@ namespace SignalR.BusinessLayer.Abstract
 	public interface IMenuTableService : IGenericService<MenuTable>
 	{
 		public int MenuTableCount();
+
+		void MenuTableStatusChange(int id, bool statusType);
 	}
 }
