@@ -9,7 +9,7 @@ namespace SignalR.EntityLayer.Entities
 {
 	public class AppUser : IdentityUser<int>
 	{
-        public string Name { get; set; }
-        public string SurName { get; set; }
+        public string? Name { get; set; } = null;
+        public string? SurName { get; set; } = null;
     }
 }

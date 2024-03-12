@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Identity;
+using SignalR.DataAccessLayer.Concrete;
+using SignalR.EntityLayer.Entities;
 using SignalRWebUI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +11,10 @@ builder.Services.AddScoped<ConsumeService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<SignalRContext>();
+builder.Services.AddIdentityCore<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+	.AddEntityFrameworkStores<SignalRContext>();
 
 var app = builder.Build();
 
@@ -23,6 +30,28 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+using (var scope = app.Services.CreateScope())
+{
+	var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+	var dbContext = scope.ServiceProvider.GetRequiredService<SignalRContext>();
+
+	if (userManager.FindByEmailAsync("admin@example.com").Result == null)
+	{
+		var user = new AppUser
+		{
+			UserName = "admin",
+			Email = "admin@example.com"
+		};
+
+		var result = userManager.CreateAsync(user, "Password123*!").Result;
+		if (result.Succeeded)
+		{
+			
+		}
+	}
+}
+
 
 app.UseAuthorization();
 
