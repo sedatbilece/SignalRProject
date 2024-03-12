@@ -14,6 +14,7 @@ namespace SignalRApi.Hubs
 		private readonly IMoneyCaseService _moneyCaseService;
 		private readonly IMenuTableService _menuTableService;
 		private readonly INotificationService _notificationService;
+        public static int clientCount { get; set; } = 0;
 
         public SignalRHub(ICategoryService categoryService, IProductService productService, SignalRContext context, IOrderService orderService, IMoneyCaseService moneyCaseService, IMenuTableService menuTableService, INotificationService notificationService)
         {
@@ -124,5 +125,18 @@ namespace SignalRApi.Hubs
         }
 
 
-	}
+        public override async Task OnConnectedAsync()
+        {
+            clientCount++;
+            await Clients.All.SendAsync("ReceiveClientCount", Math.Ceiling((decimal)clientCount / 2));
+            await base.OnConnectedAsync();
+        }
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            clientCount--;
+            await Clients.All.SendAsync("ReceiveClientCount", Math.Ceiling((decimal)clientCount / 2));
+            await base.OnDisconnectedAsync(exception);
+        }
+
+    }
 }
