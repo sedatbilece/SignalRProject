@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using SignalR.DataAccessLayer.Concrete;
 using SignalR.EntityLayer.Entities;
@@ -13,8 +14,26 @@ builder.Services.AddScoped<ConsumeService>();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<SignalRContext>();
-builder.Services.AddIdentityCore<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<SignalRContext>();
+
+
+builder.Services.AddIdentity<AppUser, AppRole>(options =>
+{
+	options.User.RequireUniqueEmail = false;
+})
+	.AddEntityFrameworkStores<SignalRContext>()
+	.AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.AccessDeniedPath = "/Identity/AccessDenied";
+	options.Cookie.Name = "YourAppCookieName";
+	options.Cookie.HttpOnly = true;
+	options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+	options.LoginPath = "/Login/Index";
+	options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+	options.SlidingExpiration = true;
+});
+
 
 var app = builder.Build();
 
@@ -51,6 +70,7 @@ using (var scope = app.Services.CreateScope())
 		}
 	}
 }
+
 
 
 app.UseAuthorization();
