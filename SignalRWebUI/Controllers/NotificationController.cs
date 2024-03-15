@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SignalR.DtoLayer.NotificationDtos;
 using System.Text;
 
 namespace SignalRWebUI.Controllers
 {
-    public class NotificationController : Controller
+	[Authorize]
+	public class NotificationController : Controller
     {
 
         private readonly IHttpClientFactory _httpClientFactory;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SignalRWebUI.Dtos.CategoryDtos;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Text;
 
 namespace SignalRWebUI.Controllers
 {
-    public class CategoryController : Controller
+	[Authorize]
+	public class CategoryController : Controller
     {
 
         private readonly IHttpClientFactory _httpClientFactory;

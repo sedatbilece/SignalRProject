@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SignalRWebUI.Controllers
 {
-    public class AdminLayoutController : Controller
+	public class AdminLayoutController : Controller
     {
         public IActionResult Index()
         {

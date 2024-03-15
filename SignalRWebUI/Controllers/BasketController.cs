@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SignalRWebUI.Dtos.BasketDtos;
 using SignalRWebUI.Dtos.DefaultDtos;
@@ -8,7 +9,8 @@ using System.Text;
 
 namespace SignalRWebUI.Controllers
 {
-    public class BasketController : Controller
+	[Authorize]
+	public class BasketController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ConsumeService _consumeService;

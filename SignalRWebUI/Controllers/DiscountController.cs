@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SignalRWebUI.Dtos.DiscountDtos;
 using System.Text;
 
 namespace SignalRWebUI.Controllers
 {
+	[Authorize]
 	public class DiscountController : Controller
 	{
 
